@@ -1,38 +1,549 @@
-.App {
-  text-align: center;
-}
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 30px;
+  background-color: #f0f4f8;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-bottom: 30px;
+  border-bottom: 2px solid #dfe3e8;
+  padding-bottom: 15px;
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.header h1 span {
+  color: #5a4bff;
+  font-weight: 700;
+}
+
+.header:hover h1 {
+  color: #5a4bff;
+}
+
+.nav-btn {
+  padding: 12px 25px;
+  background-color: #5a4bff;
   color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-btn:hover {
+  background-color: #4837cc;
+  transform: translateY(-3px);
 }
 
-@keyframes App-logo-spin {
+.nav-btn.active {
+  background-color: #4837cc;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.severity-filters, .sort-filters {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-btn, .sort-btn {
+  padding: 10px 20px;
+  background-color: #5a4bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filter-btn:hover, .sort-btn:hover {
+  background-color: #4837cc;
+  transform: translateY(-3px);
+}
+
+.filter-btn.active, .sort-btn.active {
+  background-color: #4837cc;
+}
+
+.incidents {
+  display: grid;
+  gap: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.incidents::-webkit-scrollbar {
+  width: 8px;
+}
+
+.incidents::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.incidents::-webkit-scrollbar-thumb {
+  background: #5a4bff;
+  border-radius: 4px;
+}
+
+.incident-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.incident-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.incident-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.incident-title {
+  font-weight: 600;
+  flex: 1;
+}
+
+.incident-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.severity {
+  font-weight: 600;
+}
+
+.severity-low {
+  color: #28a745;
+}
+
+.severity-medium {
+  color: #ff9800;
+}
+
+.severity-high {
+  color: #dc3545;
+}
+
+.incident-meta span:last-child {
+  color: #888;
+  font-size: 14px;
+}
+
+.details-btn {
+  padding: 10px 20px;
+  background-color: #5a4bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.details-btn:hover {
+  background-color: #4837cc;
+  transform: translateY(-3px);
+}
+
+.description {
+  margin-top: 10px;
+  color: #555;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.form-section {
+  margin-top: 40px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.form-section input, .form-section textarea, .form-section select {
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 12px;
+  border: 1px solid #e0e4e8;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+.form-section input:focus, .form-section textarea:focus, .form-section select:focus {
+  border-color: #5a4bff;
+  outline: none;
+}
+
+.form-section textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-section select {
+  cursor: pointer;
+}
+
+.submit-btn {
+  padding: 12px 25px;
+  background-color: #5a4bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #4837cc;
+  transform: translateY(-3px);
+}
+
+.section {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+.section h2 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.section p {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+
+.section a {
+  color: #5a4bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.section a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Styling */
+.footer {
+  background-color: transparent; /* Removed background color */
+  color: #333; /* Change text color */
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.footer a {
+  color: #3498db; /* Link color */
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer p {
+  margin: 0;
+  font-weight: 300;
+}
+
+/* Keyframe animation for the header */
+@keyframes slideIn {
   from {
-    transform: rotate(0deg);
+    transform: translateX(-100%);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Contact Section */
+.contact-section {
+  margin-top: 50px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contact-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 12px;
+  border: 1px solid #e0e4e8;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+  border-color: #5a4bff;
+  outline: none;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact-btn {
+  padding: 12px 25px;
+  background-color: #5a4bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-btn:hover {
+  background-color: #4837cc;
+  transform: translateY(-3px);
+}
+
+/* Report Section */
+.report-section {
+  margin-top: 50px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.report-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.report-form input, .report-form select, .report-form textarea {
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 12px;
+  border: 1px solid #e0e4e8;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.report-form input:focus, .report-form textarea:focus, .report-form select:focus {
+  border-color: #5a4bff;
+  outline: none;
+}
+
+.report-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.report-btn {
+  padding: 12px 25px;
+  background-color: #5a4bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.report-btn:hover {
+  background-color: #4837cc;
+  transform: translateY(-3px);
+}
+/* Common Section Styling */
+.section {
+  padding: 2rem;
+  margin: 2rem 0;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Headings */
+.section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Form Labels */
+.section form label {
+  display: block;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+/* Form Inputs, Textareas, Selects */
+.section form input,
+.section form textarea,
+.section form select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 4px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus Effect */
+.section form input:focus,
+.section form textarea:focus,
+.section form select:focus {
+  border-color: #5a4bff;
+  background-color: #fff;
+  outline: none;
+}
+
+/* Textarea Special Styling */
+.section form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Submit Button */
+.submit-btn {
+  margin-top: 24px;
+  background-color: #5a4bff;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Button Hover Effect */
+.submit-btn:hover {
+  background-color: #4837cc;
+  transform: translateY(-2px);
+}
+
+/* Disabled Button */
+.submit-btn:disabled {
+  background-color: #bdbdbd;
+  cursor: not-allowed;
+}
+
+/* Contact Section Styling */
+.section p {
+  font-size: 18px;
+  color: #666;
+  margin: 10px 0;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.section a {
+  color: #5a4bff;
+  text-decoration: none;
+}
+
+.section a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .section {
+    padding: 1.5rem 1rem;
+  }
+  
+  .section h2 {
+    font-size: 24px;
+  }
+
+  .submit-btn {
+    font-size: 16px;
+    padding: 12px;
   }
 }
